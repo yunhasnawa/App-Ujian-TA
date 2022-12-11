@@ -43,12 +43,14 @@ recordRoutes.route("/record/:id").get(function (req, res) {
 recordRoutes.route("/record/add").post(function (req, response) {
     console.log("/record/add")
     let db_connect = dbo.getDb();
-    let myobj = {
-        name: req.body.name,
-        position: req.body.position,
-        level: req.body.level,
-    };
-    db_connect.collection("records").insertOne(myobj, function (err, res) {
+    // let myobj = {
+    //     name: req.body.name,
+    //     position: req.body.position,
+    //     level: req.body.level,
+    // };
+    myobj = Util.reqToObj(req);
+    console.log(myobj)
+    db_connect.collection("ujian_terjadwal").insertOne(myobj, function (err, res) {
         if (err) throw err;
         response.json(res);
     });
@@ -103,7 +105,7 @@ recordRoutes.route("/:id").delete((req, response) => {
     console.log("/:id")
     let db_connect = dbo.getDb();
     let myquery = { _id: ObjectId(req.params.id) };
-    db_connect.collection("records").deleteOne(myquery, function (err, obj) {
+    db_connect.collection("ujian_terjadwal").deleteOne(myquery, function (err, obj) {
         if (err) throw err;
         console.log("1 document deleted");
         response.json(obj);

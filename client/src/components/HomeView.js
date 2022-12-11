@@ -16,11 +16,11 @@ export default class HomeView extends React.Component {
     setRecords(records) {
         this.setState({
             records: records,
-            headers: this._extractHeaders(records)
+            headers: this.extractHeaders(records)
         })
     }
 
-    _extractHeaders(records) {
+    extractHeaders(records) {
         let headers = [];
         if(records.length > 0) {
             for (const [key, value] of Object.entries(records[0])) {
@@ -31,14 +31,14 @@ export default class HomeView extends React.Component {
     }
 
     componentDidMount() {
-        this._retrieveRecords().then(records => this.setRecords(records))
+        this.retrieveRecords().then(records => this.setRecords(records))
     }
 
     componentWillUnmount() {
     }
 
     // Ambil data dari database
-    async _retrieveRecords() {
+    async retrieveRecords() {
         const response = await fetch(`http://localhost:8989/record/`);
 
         if (!response.ok) {
@@ -51,7 +51,7 @@ export default class HomeView extends React.Component {
     }
 
     // Hapus record
-    async _deleteRecord(id) {
+    async deleteRecord(id) {
         await fetch(`http://localhost:8989/${id}`, {
             method: "DELETE"
         });
@@ -61,7 +61,7 @@ export default class HomeView extends React.Component {
     }
 
     handleDeleteLinkClick(id) {
-        this._deleteRecord(id).then(records => this.setRecords(records));
+        this.deleteRecord(id).then(records => this.setRecords(records));
     }
 
     render() {
@@ -93,11 +93,11 @@ class TableRowView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            fields: this._extractFields(this.props.record)
+            fields: this.extractFields(this.props.record)
         }
     }
 
-    _extractFields(record) {
+    extractFields(record) {
         let fields = []
         for (const [key, value] of Object.entries(record)) {
             fields.push(key);

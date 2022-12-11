@@ -27,12 +27,12 @@ class EditView extends React.Component {
             return;
         this.setState({
             record: record,
-            formFields: EditView._retrieveFormFields(record)
+            formFields: EditView.retrieveFormFields(record)
         })
     }
 
     componentDidMount() {
-        this._fetchData().then(record => this.setRecord(record));
+        this.fetchData().then(record => this.setRecord(record));
     }
 
     componentWillUnmount() {
@@ -40,7 +40,7 @@ class EditView extends React.Component {
 
     onFormSubmit(e) {
         e.preventDefault();
-        this._editData(this.state.record).then(() => {
+        this.editData(this.state.record).then(() => {
             alert("Data berhasil diubah.");
             this.navigate("/")
         });
@@ -55,13 +55,13 @@ class EditView extends React.Component {
         });
     }
 
-    static _retrieveFormFields(record) {
+    static retrieveFormFields(record) {
         if (record == null)
             return []
         return Util.getShallowKeys(record);
     }
 
-    async _editData(updatedRecord) {
+    async editData(updatedRecord) {
         let updatedId = updatedRecord._id;
         await fetch(`http://localhost:8989/update/${updatedId}`, {
             method: "POST",
@@ -72,7 +72,7 @@ class EditView extends React.Component {
         });
     }
 
-    async _fetchData() {
+    async fetchData() {
         const id = this.params.id.toString();
         const response = await fetch(`http://localhost:8989/record/${this.params.id.toString()}`);
 
