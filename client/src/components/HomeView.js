@@ -65,24 +65,34 @@ export default class HomeView extends React.Component {
     }
 
     render() {
+        const tableContainerStyle = {
+            borderRadius: "5px",
+            height: "100%",
+            padding: "0 10px 10px 10px",
+            overflow: "scroll",
+            border: "1px solid black"
+        } ;
         let self = this;
         return (
             <div>
-                <h3>Record List</h3>
-                <table className="table table-striped" style={{marginTop: 20}}>
-                    <thead>
-                    <tr>
-                        {this.state.headers.map(function (header, index) {
-                            return <th>{Util.prettifyFieldName(header)}</th>;
+                <h3>Daftar Ujian Terjadwal</h3>
+                <div style={tableContainerStyle}>
+                    <table className="table table-striped" style={{marginTop: 20}}>
+                        <thead>
+                        <tr>
+                            {this.state.headers.map(function (header, index) {
+                                return <th>{Util.prettifyFieldName(header)}</th>;
+                            })}
+                            <th>Aksi</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {this.state.records.map(function (record, index) {
+                            return <TableRowView record={record} deleteAction={() => {self.handleDeleteLinkClick(record._id)}}/>
                         })}
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {this.state.records.map(function (record, index) {
-                        return <TableRowView record={record} deleteAction={() => {self.handleDeleteLinkClick(record._id)}}/>
-                    })}
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         );
     }

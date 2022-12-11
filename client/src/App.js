@@ -10,8 +10,12 @@ import HomeView from "./components/HomeView";
 import AddView from "./components/AddView";
 
 const App = () => {
+    const mainContainerStyle = {
+        padding: "8px",
+    };
+
     return (
-        <div>
+        <div style={mainContainerStyle}>
             <Navbar />
             <Routes>
                 <Route exact path="/" element={<HomeView />} />

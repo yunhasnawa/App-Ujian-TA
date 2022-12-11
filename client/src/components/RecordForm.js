@@ -27,7 +27,7 @@ export default class RecordForm extends React.Component {
             <div className="form-group">
                 <input
                     type="submit"
-                    value="Update Record"
+                    value="Simpan"
                     className="btn btn-primary"
                 />
             </div>

@@ -96,7 +96,7 @@ class EditView extends React.Component {
         let self = this; // Untuk menjaga scope callback
         return (
             <div>
-                <h3>Update Record</h3>
+                <h3>Ubah Data Ujian</h3>
                 <RecordForm
                     record={this.state.record}
                     formFields={this.state.formFields}

@@ -139,7 +139,7 @@ class AddView extends React.Component {
         let self = this; // Untuk menjaga scope callback
         return (
             <div>
-                <h3>Update Record</h3>
+                <h3>Tambah Data Ujian Baru</h3>
                 <RecordForm
                     record={this.state.record}
                     formFields={this.state.formFields}
