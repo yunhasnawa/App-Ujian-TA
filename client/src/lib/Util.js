@@ -12,4 +12,12 @@ export default class Util {
         result = Util.ucWords(result);
         return result;
     }
+
+    static getShallowKeys(obj) {
+        let keys = [];
+        for (const [key, value] of Object.entries(obj)) {
+            keys.push(key);
+        }
+        return keys;
+    }
 }
