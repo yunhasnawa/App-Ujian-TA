@@ -1,26 +1,29 @@
 const { MongoClient } = require("mongodb");
-const Db = process.env.MONGO_URI;
-const client = new MongoClient(Db, {
+
+const CONNECTION = process.env.MONGO_URI;
+const DB_NAME = process.env.MONGO_DB_NAME;
+const COLLECTION_NAME = process.env.MONGO_COLLECTION_NAME;
+
+const client = new MongoClient(CONNECTION, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    authSource: "admin"
 });
 
 var _db;
 
 module.exports = {
-    connectToServer: function (callback) {
-        client.connect(function (err, db) {
-            // Verify we got a good "db" object
-            if (db)
-            {
-                _db = db.db("ujian_ta");
-                console.log("Successfully connected to MongoDB.");
+    connectToServer: async (callback) => {
+        try {
+            _db = client.db('ujian_terjadwal')
+            let isCollectionExist = await _db.collections();
+            if (isCollectionExist.length == 0 || isCollectionExist.includes(COLLECTION_NAME)) {
+                await _db.createCollection(COLLECTION_NAME)
             }
-            return callback(err);
-        });
+        } catch (error) {
+            console.error(error);
+            process.exit(1)
+        }
     },
-
-    getDb: function () {
-        return _db;
-    },
+    db: () => _db,
 };
